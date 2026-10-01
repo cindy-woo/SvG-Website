@@ -644,6 +644,9 @@ function App() {
             <p className="architecture-intro">
               Each drone runs its own flight controller, but nothing onboard knows where the other drones are. SVG keeps that knowledge on the ground. A central <code>swarm_commander</code> reads every drone's odometry in one world frame. It builds each drone's nominal command from a scenario, a goal or a gamepad, filters all of them together through a velocity CBF, and sends each drone a PX4-style trajectory point. Sim and hardware differ only in which topics a drone's commands go to. That's why a real drone in the mocap room and a simulated one in Isaac Sim can dodge each other under the same filter.
             </p>
+            <p className="architecture-summary">
+              SVG is one ROS 2 package inside <a href="https://github.com/castacks/AirStack">AirStack</a>, AirLab's containerised autonomy stack. It sits on top of AirStack's interface layer rather than replacing it. Each drone's <code>robot_interface_node</code> talks to PX4, through MAVROS for a simulated drone or over uXRCE-DDS with <code>px4_interface</code> for a real one, and <code>odometry_conversion</code> turns either into the same ENU odometry topic and TF. In simulation, AirStack's Isaac Sim container runs the physics and one PX4 SITL per drone; on hardware, its <code>natnet_ros2</code> node brings in the OptiTrack poses. SVG reads those odometry topics, writes each drone's command, and launches with <code>AUTOLAUNCH=false</code> so AirStack's stock planners stay out of the loop.
+            </p>
             <SystemPipeline />
             <div className="svg-stats">
               {stats.map((stat) => (

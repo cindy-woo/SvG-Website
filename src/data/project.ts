@@ -23,8 +23,8 @@ export const pipeline = [
   {
     id: "state",
     title: "State",
-    node: "natnet_ros2 · mocap_bridge",
-    text: "OptiTrack poses are fed to each drone's PX4 EKF2 as external vision. The odometry comes back as one ENU topic per drone, and sim and hardware publish it the same way.",
+    node: "natnet_ros2 · mocap_bridge · odometry_conversion",
+    text: "OptiTrack poses are fed to each drone's PX4 EKF2 as external vision. The odometry comes back through AirStack's odometry_conversion as one ENU topic per drone, so sim and hardware look the same.",
   },
   {
     id: "nominal",
@@ -47,8 +47,8 @@ export const pipeline = [
   {
     id: "output",
     title: "Output",
-    node: "px4_interface · MAVROS",
-    text: "Real drones get a reference point plus velocity and acceleration feedforward on trajectory_command. Simulated drones get a velocity.",
+    node: "robot_interface: px4_interface · mavros_interface",
+    text: "AirStack's robot_interface_node carries the command to PX4, over uXRCE-DDS for a real drone and through MAVROS for a simulated one. Real drones get a reference point plus velocity and acceleration feedforward on trajectory_command. Simulated drones get a velocity.",
   },
 ] as const;
 

@@ -3312,3 +3312,8 @@ code {
 
 /* The architecture figure is 1882 x 996; let it keep its own shape. */
 .architecture-figure > a { aspect-ratio: auto; }
+
+/* No placeholders: a slot without a file leaves only the text, at full width. */
+.svg-safety .effect-viewer.is-text-only { grid-template-columns: 1fr; }
+.comparison-layout.is-text-only { grid-template-columns: 1fr; }
+.svg-mode-gallery { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }

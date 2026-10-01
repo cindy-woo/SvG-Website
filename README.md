@@ -30,7 +30,7 @@ The dev server serves only the homepage, so use the full preview to check the do
 
 ## Add photos, videos and figures
 
-Every media slot on the homepage shows a "planned" card until a file is added.
+A media slot with no file is left out of the page and its text stands alone; add the file and set `src` to show it.
 
 1. Put the file in `public/static/media/videos/`, `photos/` or `figures/`. For a video, add a poster `.jpg`
    with the same name next to it.

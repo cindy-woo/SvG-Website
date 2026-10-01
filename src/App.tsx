@@ -18,6 +18,10 @@ import {
 } from "./data/project";
 import { useUrlChoice } from "./hooks/useUrlChoice";
 
+// Only slots with a file are shown; the galleries disappear when none has one.
+const modeGallery = [media.modeSim, media.modeReal, media.modeHybrid].filter((slot) => slot.src);
+const findingPlots = [media.plotGoalLaw, media.plotFence].filter((slot) => slot.src);
+
 const navItems = [
   { id: "system", label: "System" },
   { id: "safety", label: "Safety" },
@@ -160,9 +164,7 @@ function VideoFrame({
   );
 }
 
-const plannedLabel = { video: "Video planned", photo: "Photo planned", figure: "Figure planned" } as const;
-
-// Renders a media slot, or a labelled placeholder until the file is added in data/media.ts.
+// Renders a media slot. A slot with no file renders nothing: the text around it stands alone.
 function MediaFrame({
   slot,
   describedBy,
@@ -182,16 +184,7 @@ function MediaFrame({
       </a>
     );
   }
-  return (
-    <div className={`media-placeholder ${className}`} role="img" aria-label={`${slot.label}: ${plannedLabel[slot.kind].toLowerCase()}`}>
-      <div className="effect-stage-grid" aria-hidden="true" />
-      <div className="effect-stage-copy">
-        <span>{plannedLabel[slot.kind]}</span>
-        <strong>{slot.label}</strong>
-        <small>public/static/media/{slot.suggested}</small>
-      </div>
-    </div>
-  );
+  return null;
 }
 
 // What a filled slot shows, with a link to the file itself (the full three-pane recording).
@@ -311,10 +304,12 @@ function SafetyExplorer() {
         ))}
       </div>
       <div id="safety-panel" className="effect-workbench" role="tabpanel" aria-labelledby={`safety-tab-${layer.id}`}>
-        <div className="effect-viewer">
-          <div className="effect-stage has-media">
-            <MediaFrame slot={layer.media} describedBy="safety-summary" />
-          </div>
+        <div className={`effect-viewer ${layer.media.src ? "" : "is-text-only"}`}>
+          {layer.media.src && (
+            <div className="effect-stage has-media">
+              <MediaFrame slot={layer.media} describedBy="safety-summary" />
+            </div>
+          )}
           <div className="effect-evidence">
             <p className="effect-explanation" id="safety-summary">{layer.summary}</p>
             <p className="effect-caption">{layer.detail}</p>
@@ -448,7 +443,7 @@ function ExperimentExplorer() {
         ))}
       </div>
       <div className="experiment-panel" id="experiment-panel" role="tabpanel" aria-labelledby={`experiment-tab-${experiment.id}`}>
-        <div className="experiment-three-layout comparison-layout">
+        <div className={`experiment-three-layout comparison-layout ${experiment.media.src ? "" : "is-text-only"}`}>
           <div className="embodiment-comparison-panel">
             <p className="study-insight">{experiment.summary}</p>
             <p className="evaluation-context">Config: <code>{experiment.config}</code></p>
@@ -482,12 +477,14 @@ function ExperimentExplorer() {
             <p className="svg-led"><span aria-hidden="true" /> {experiment.leds}</p>
             <MediaCaption slot={experiment.media} />
           </div>
-          <div className="embodiment-video-panel">
-            <div className="experiment-video">
-              <MediaFrame slot={experiment.media} describedBy="experiment-caption" />
-              <p id="experiment-caption"><strong>{experiment.code} · {experiment.label}</strong></p>
+          {experiment.media.src && (
+            <div className="embodiment-video-panel">
+              <div className="experiment-video">
+                <MediaFrame slot={experiment.media} describedBy="experiment-caption" />
+                <p id="experiment-caption"><strong>{experiment.code} · {experiment.label}</strong></p>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
@@ -613,11 +610,11 @@ function App() {
           </div>
         </section>
 
-        <section className="overview-video" id="overview" aria-labelledby="overview-heading">
-          <div className="page-shell">
-            <div className="overview-content">
-              <h2 id="overview-heading">Overview video</h2>
-              {media.overview.src ? (
+        {media.overview.src && (
+          <section className="overview-video" id="overview" aria-labelledby="overview-heading">
+            <div className="page-shell">
+              <div className="overview-content">
+                <h2 id="overview-heading">Overview video</h2>
                 <video
                   className="overview-player"
                   controls
@@ -631,12 +628,10 @@ function App() {
                   <source src={media.overview.src} type="video/mp4" />
                   <a href={media.overview.src}>Watch the overview video</a>.
                 </video>
-              ) : (
-                <MediaFrame slot={media.overview} className="overview-placeholder" />
-              )}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         <section className="architecture-section section-block" id="system">
           <div className="page-shell">
@@ -672,14 +667,16 @@ function App() {
               <p>Every task is a config. Each drone in it is set on three independent axes, so pure sim, all real and hybrid are the same task with different settings.</p>
             </SectionIntro>
             <DroneAxes />
-            <div className="svg-mode-gallery">
-              {[media.modeSim, media.modeReal, media.modeHybrid].map((slot) => (
-                <figure key={slot.suggested}>
-                  <MediaFrame slot={slot} />
-                  <figcaption>{slot.label}</figcaption>
-                </figure>
-              ))}
-            </div>
+            {modeGallery.length > 0 && (
+              <div className="svg-mode-gallery">
+                {modeGallery.map((slot) => (
+                  <figure key={slot.suggested}>
+                    <MediaFrame slot={slot} />
+                    <figcaption>{slot.label}</figcaption>
+                  </figure>
+                ))}
+              </div>
+            )}
           </div>
         </section>
 
@@ -769,14 +766,16 @@ function App() {
                 </tbody>
               </table>
             </div>
-            <div className="svg-plot-row">
-              {[media.plotGoalLaw, media.plotFence].map((slot) => (
-                <figure key={slot.suggested}>
-                  <MediaFrame slot={slot} />
-                  <figcaption>{slot.label}</figcaption>
-                </figure>
-              ))}
-            </div>
+            {findingPlots.length > 0 && (
+              <div className="svg-plot-row">
+                {findingPlots.map((slot) => (
+                  <figure key={slot.suggested}>
+                    <MediaFrame slot={slot} />
+                    <figcaption>{slot.label}</figcaption>
+                  </figure>
+                ))}
+              </div>
+            )}
           </div>
         </section>
 

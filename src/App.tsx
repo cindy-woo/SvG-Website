@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from "react";
-import { media, releaseResources, type MediaSlot } from "./data/media";
+import { media, releaseResources, withBase, type MediaSlot } from "./data/media";
 import {
   affiliations,
   authors,
@@ -512,7 +512,7 @@ function Header() {
       <a className="skip-link" href="#main-content">Skip to content</a>
       <div className="nav-shell">
         <a className="wordmark" href="#top" onClick={() => setMenuOpen(false)}>
-          <img className="wordmark-mark" src="/static/images/svg-logo.svg" alt="" width="34" height="34" />
+          <img className="wordmark-mark" src={withBase("/static/images/svg-logo.svg")} alt="" width="34" height="34" />
           <span>Strike vs Guard</span>
         </a>
         <button
@@ -538,7 +538,7 @@ function Header() {
               {item.label}
             </a>
           ))}
-          <a className="nav-docs" href="/docs/">Docs ↗</a>
+          <a className="nav-docs" href={withBase("/docs/")}>Docs ↗</a>
         </nav>
       </div>
     </header>
@@ -791,13 +791,13 @@ function App() {
       <footer className="site-footer">
         <div className="page-shell footer-grid">
           <div className="footer-brand">
-            <img className="wordmark-mark" src="/static/images/svg-logo.svg" alt="" width="34" height="34" />
+            <img className="wordmark-mark" src={withBase("/static/images/svg-logo.svg")} alt="" width="34" height="34" />
             <div><strong>Strike vs Guard</strong><p>Collision-safe multi-drone ground control on AirStack.</p></div>
           </div>
           <div className="footer-contact">
             <p className="mini-label">Explore and reproduce</p>
             <a href={`${repoBase}/${packagePath}`}>svg_ground_control on GitHub ↗</a>
-            <a href="/docs/">Documentation ↗</a>
+            <a href={withBase("/docs/")}>Documentation ↗</a>
           </div>
         </div>
         <div className="page-shell footer-base">

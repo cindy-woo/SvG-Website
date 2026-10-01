@@ -3,6 +3,9 @@
 // and set `src` to its public path (e.g. "/static/media/videos/squeeze-hybrid.mp4").
 // Videos look for a poster beside them with the same name and a .jpg extension.
 
+// Prefixes a site path with the deploy base ("/SvG-Website/" on GitHub Pages).
+export const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
+
 export type MediaKind = "video" | "photo" | "figure";
 
 export type MediaSlot = {
@@ -16,7 +19,7 @@ const slot = (kind: MediaKind, label: string, suggested: string, src?: string): 
   kind,
   label,
   suggested,
-  src,
+  src: src && withBase(src),
 });
 
 export const media = {
@@ -67,7 +70,7 @@ export const releaseResources: ReleaseResource[] = [
     href: "https://github.com/castacks/AirStack/tree/yikuan/SVG_ground_control/robot/ros_ws/src/svg_ground_control",
     status: "available",
   },
-  { id: "docs", label: "Documentation", href: "/docs/", status: "available" },
+  { id: "docs", label: "Documentation", href: withBase("/docs/"), status: "available" },
   { id: "paper", label: "Paper", status: "coming-soon" },
   { id: "video", label: "Video", status: "coming-soon" },
 ];

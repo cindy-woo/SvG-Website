@@ -16,7 +16,8 @@ await access(indexPath);
 const html = await readFile(indexPath, "utf8");
 const referencedAssets = [...html.matchAll(/(?:src|href)="([^"]+)"/g)]
   .map((match) => match[1])
-  .filter((reference) => reference.startsWith("/assets/"));
+  .filter((reference) => reference.startsWith("/") && reference.includes("/assets/"))
+  .map((reference) => reference.slice(reference.indexOf("/assets/")));
 
 if (referencedAssets.length === 0) {
   throw new Error("No built CSS or JavaScript assets were referenced by dist/index.html.");

@@ -1,4 +1,5 @@
 site_name: Strike vs Guard Documentation
+site_url: https://cindy-woo.github.io/SvG-Website/docs/
 site_description: Collision-safe multi-drone ground control for counter-UAS flights on AirStack
 docs_dir: docs
 

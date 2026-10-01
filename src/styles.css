@@ -3317,3 +3317,11 @@ code {
 .svg-safety .effect-viewer.is-text-only { grid-template-columns: 1fr; }
 .comparison-layout.is-text-only { grid-template-columns: 1fr; }
 .svg-mode-gallery { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+
+/* Recordings show the whole Foxglove layout, so they need the full page width:
+   one scenario card per row, and the experiment video above its text. */
+.task-grid,
+.task-grid-pair { grid-template-columns: 1fr; }
+.task-card p { max-width: 78ch; }
+.comparison-layout.has-recording { grid-template-columns: 1fr; }
+.comparison-layout.has-recording .embodiment-video-panel { order: -1; }

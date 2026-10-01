@@ -10,7 +10,7 @@ export type MediaKind = "video" | "photo" | "figure";
 
 // The flight recordings are three panes side by side, 1920 x 552: the SVG Basestation
 // panel, the 3D view with the battery panel under it, and the mocap-room camera.
-// "camera" crops a frame to the camera pane; "full" shows all three.
+// "full" shows all three (the default); "camera" crops a frame to the camera pane.
 export type MediaFraming = "camera" | "full";
 
 export type MediaSlot = {
@@ -31,7 +31,7 @@ const slot = (kind: MediaKind, label: string, suggested: string, src?: string): 
 });
 
 // A flight recording from public/static/media/videos/, with the caption shown under it.
-const recording = (label: string, file: string, caption: string, framing: MediaFraming = "camera"): MediaSlot => ({
+const recording = (label: string, file: string, caption: string, framing: MediaFraming = "full"): MediaSlot => ({
   kind: "video",
   label,
   suggested: `videos/${file}`,

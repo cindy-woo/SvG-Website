@@ -335,7 +335,7 @@ function SafetyExplorer() {
 function ScenarioCard({ scenario, number }: { scenario: Scenario; number: string }) {
   const captionId = `scenario-${scenario.id}-caption`;
   return (
-    <article className="task-card">
+    <article className={`task-card ${scenario.media.src ? "has-recording" : ""}`}>
       <MediaFrame slot={scenario.media} describedBy={captionId} />
       <div className="task-card-copy">
         <span>{number}</span>
@@ -443,7 +443,7 @@ function ExperimentExplorer() {
         ))}
       </div>
       <div className="experiment-panel" id="experiment-panel" role="tabpanel" aria-labelledby={`experiment-tab-${experiment.id}`}>
-        <div className={`experiment-three-layout comparison-layout ${experiment.media.src ? "" : "is-text-only"}`}>
+        <div className={`experiment-three-layout comparison-layout ${experiment.media.src ? "has-recording" : "is-text-only"}`}>
           <div className="embodiment-comparison-panel">
             <p className="study-insight">{experiment.summary}</p>
             <p className="evaluation-context">Config: <code>{experiment.config}</code></p>

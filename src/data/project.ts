@@ -7,10 +7,9 @@ import { media, type MediaSlot } from "./media";
 export const repoBase = "https://github.com/castacks/AirStack/tree/yikuan/SVG_ground_control";
 export const packagePath = "robot/ros_ws/src/svg_ground_control";
 
-// The affiliation is the index into `affiliations`, shown as a superscript. Leave empty to hide the author row.
-export const authors: { name: string; affiliation: string; href?: string }[] = [
-  { name: "Yikuan Fang", affiliation: "1" },
-];
+// The site is authored by the lab, so no individual names: the author row stays hidden and only
+// `affiliations` is shown. To list people, add { name, affiliation: "1" } entries here.
+export const authors: { name: string; affiliation: string; href?: string }[] = [];
 
 export const affiliations = ["AirLab, Robotics Institute, Carnegie Mellon University"];
 

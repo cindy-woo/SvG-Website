@@ -42,7 +42,10 @@ const recording = (label: string, file: string, caption: string, framing: MediaF
 
 export const media = {
   overview: slot("video", "Project overview video", "videos/overview.mp4"),
-  architecture: slot("figure", "System architecture diagram", "figures/architecture.png"),
+  architecture: {
+    ...slot("figure", "SVG ground controller: the swarm control stack", "figures/architecture.jpg", "/static/media/figures/architecture.jpg"),
+    caption: "Each drone's command comes from the nominal controller or from a gamepad, depending on its role. It then passes through the safety filter unless the drone is CBF-exempt, and goes out to Isaac Sim or to a real drone. External drones are tracked as obstacles, and mocap positions feed both the filter and the simulator.",
+  },
   basestation: recording(
     "SVG Basestation panel in Foxglove during a goal run",
     "scenario-goal.mp4",
@@ -52,7 +55,7 @@ export const media = {
   mocapRoom: slot("photo", "Motion-capture flight room", "photos/mocap-room.jpg"),
 
   modeSim: slot("photo", "Simulated drones in Isaac Sim", "photos/isaac-sim.jpg"),
-  modeReal: slot("photo", "Starling drone with its LED strip", "photos/starling.jpg"),
+  modeReal: slot("photo", "Three Starling drones with their LED strips in the flight room", "photos/starling.jpg", "/static/media/photos/starling.jpg"),
   modeHybrid: slot("photo", "Real drone shown as an avatar in Isaac Sim", "photos/hybrid-avatar.jpg"),
 
   safetyCbf: recording(

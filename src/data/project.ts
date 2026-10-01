@@ -7,10 +7,12 @@ import { media, type MediaSlot } from "./media";
 export const repoBase = "https://github.com/castacks/AirStack/tree/yikuan/SVG_ground_control";
 export const packagePath = "robot/ros_ws/src/svg_ground_control";
 
-// TODO: fill in the team before sharing the site. Leave empty to hide the author row.
-export const authors: { name: string; affiliation: string; href?: string }[] = [];
+// The affiliation is the index into `affiliations`, shown as a superscript. Leave empty to hide the author row.
+export const authors: { name: string; affiliation: string; href?: string }[] = [
+  { name: "Yikuan Fang", affiliation: "1" },
+];
 
-export const affiliations = ["AirLab, Carnegie Mellon University"];
+export const affiliations = ["AirLab, Robotics Institute, Carnegie Mellon University"];
 
 export const stats = [
   { value: "20 Hz", label: "central control loop for every drone" },
@@ -171,11 +173,11 @@ export const safetyLayers: SafetyLayer[] = [
     summary:
       "If a drone's odometry is older than state_timeout_s, it gets a zero-velocity command. A dead gamepad or a dead teleop node both count as sticks at rest, so the commander keeps holding the drone where it is.",
     detail:
-      "The stack bypasses drone_safety_monitor. PX4 failsafes and the RC kill switch are the safety net. Fences clip velocity and never cut the motors.",
+      "The stack bypasses drone_safety_monitor. PX4 failsafes and the RC emergency stop are the safety net. Fences clip velocity and never cut the motors.",
     params: [
       { name: "state_timeout_s", value: "0.5 s", text: "Stale odometry means zero velocity" },
       { name: "teleop_timeout_s", value: "—", text: "Stale sticks mean hold position" },
-      { name: "RC kill switch", value: "always", text: "The only true cutoff" },
+      { name: "RC emergency stop", value: "always", text: "The only true cutoff" },
     ],
     media: media.safetyStale,
   },
@@ -247,7 +249,7 @@ export const scenarioGroups: ScenarioGroup[] = [
     id: "crossing",
     index: "03",
     title: "Forced crossings",
-    description: "Geometry that puts drones on collision courses on purpose.",
+    description: "Geometry that makes paths cross on purpose.",
     scenarios: [
       {
         id: "head-on",
@@ -273,7 +275,7 @@ export const scenarioGroups: ScenarioGroup[] = [
     id: "strike",
     index: "04",
     title: "Strike vs guard",
-    description: "The showcase: an intruder forces its way between two guards.",
+    description: "The showcase: an intruder passes between two guards, and the guards make room.",
     scenarios: [
       {
         id: "squeeze",
@@ -352,7 +354,7 @@ export const experiments: Experiment[] = [
     ],
     watch: [
       "The holders part as the intruder closes, then settle back onto their posts.",
-      "The intruder presses straight through. It's exempt, so only the holders yield.",
+      "The intruder keeps to its straight path. It's exempt, so only the holders yield.",
     ],
     leds: "Not used. There are no physical drones.",
     media: media.expSqueezeSim,
@@ -394,7 +396,7 @@ export const experiments: Experiment[] = [
     watch: [
       "The filter treats the pilot's ramped, capped command as fixed, so the holders start moving before drone_3 arrives.",
       "The pilot meets the amber teleop fence as a soft wall, and the keep_in geofence bounds all three.",
-      "Nothing stops the pilot ramming a holder. Keep a thumb on every RC kill switch.",
+      "The filter never changes the pilot's own command, so the pilot still flies with care. Keep a thumb on every RC emergency stop.",
     ],
     leds: "Everyone green. A holder turns red while it is being pushed aside, held for at least 0.5 s so it's visible.",
     media: media.expHandFlown,
@@ -484,7 +486,7 @@ export const basestationFeatures = [
 export const limitations = [
   "cbf_alpha = 2.5 assumes no tracking lag. The close passes in run_020444 were caused by that lag.",
   "random_goals picks goals with no separation from other drones. In run_020444, 100 of 221 legs had another drone within 1.5 m of the goal.",
-  "Fences clip velocity and don't cut the motors. The stack bypasses drone_safety_monitor, so PX4 failsafes and the RC kill switch are the true cutoff.",
+  "Fences clip velocity and don't cut the motors. The stack bypasses drone_safety_monitor, so PX4 failsafes and the RC emergency stop are the true cutoff.",
   "Takeoff is fixed-time staging and doesn't check vehicle_status. If PX4 refuses to arm, the drone just stays put.",
   "Yaw sign can't be checked on the ground for real drones. Test it slowly and low on the first flight.",
   "The room limits top speed to about 8 m/s on a 10 m run at 45° tilt. 10 m/s needs about 11 m, or a 60° tilt.",

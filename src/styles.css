@@ -3309,3 +3309,6 @@ code {
 @media (max-width: 820px) {
   .svg-basestation .svg-feature-grid { grid-template-columns: 1fr; }
 }
+
+/* The architecture figure is 1882 x 996; let it keep its own shape. */
+.architecture-figure > a { aspect-ratio: auto; }

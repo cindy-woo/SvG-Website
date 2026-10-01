@@ -40,8 +40,8 @@ Every media slot on the homepage shows a "planned" card until a file is added.
    side by side (panel, 3D view, camera); `"camera"` (the default) crops a card to the camera pane and
    `"full"` shows all three.
 
-The raw clips can be kept in `video/` (ignored by git) and copied in with
-`ffmpeg -i video/<clip>.mp4 -c:v copy -an -movflags +faststart public/static/media/videos/<name>.mp4`.
+The raw clips and photos can be kept in `media/` (ignored by git). Copy a clip in with
+`ffmpeg -i media/<clip>.mp4 -c:v copy -an -movflags +faststart public/static/media/videos/<name>.mp4`.
 
 ## Edit the content
 

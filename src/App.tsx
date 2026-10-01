@@ -574,14 +574,14 @@ function App() {
       <main id="main-content">
         <section className="hero" id="top">
           <div className="page-shell hero-layout">
-            <div className="hero-kicker"><span>Counter-UAS · AirLab · AirStack</span></div>
+            <div className="hero-kicker"><span>Homogeneous multi-agent safe and agile control · AirLab · AirStack</span></div>
             <h1>
               <span className="hero-title-prefix">Strike vs Guard (SVG):</span>
               Collision-safe ground control for
               <span className="hero-topic"> multi-drone</span> strike and guard flights
             </h1>
             <p className="hero-contribution">
-              One ground commander flies every drone, real or simulated, through a shared control barrier function. The guards hold their posts, yield to an intruder that forces the gap, and return.
+              One ground commander flies every drone, real or simulated, through a shared control barrier function. The guards hold their posts, make room for an intruder passing between them, and return.
             </p>
             {authors.length > 0 && (
               <div className="author-list" aria-label="Authors">
@@ -659,6 +659,7 @@ function App() {
             <figure className="architecture-figure">
               <MediaFrame slot={media.architecture} />
               <figcaption>
+                {media.architecture.caption && <>{media.architecture.caption}<br /></>}
                 System architecture · <a href={`${repoBase}/${packagePath}/README.md`}>svg_ground_control README ↗</a>
               </figcaption>
             </figure>
@@ -685,7 +686,7 @@ function App() {
         <section className="effects-section section-block" id="safety">
           <div className="page-shell">
             <SectionIntro title="Layers of safety">
-              <p>The CBF keeps drones apart, the fences keep them in the room, and hold, land and stale-input handling cover the rest. None of these cut the motors. The RC kill switch stays the true cutoff.</p>
+              <p>The CBF keeps drones apart, the fences keep them in the room, and hold, land and stale-input handling cover the rest. None of these cut the motors. The pilot's RC emergency stop stays the true cutoff.</p>
             </SectionIntro>
             <SafetyExplorer />
           </div>
@@ -703,7 +704,7 @@ function App() {
         <section className="results-section section-block" id="experiments">
           <div className="page-shell">
             <SectionIntro title="Experiments">
-              <p>Five tasks build up to the strike: one drone to a goal, then several, then the squeeze in simulation, against a simulated intruder, and against a pilot.</p>
+              <p>Five tasks build up to the squeeze: one drone to a goal, then several, then the squeeze in simulation, with a simulated intruder, and with a pilot.</p>
             </SectionIntro>
             <ExperimentExplorer />
           </div>
@@ -786,10 +787,16 @@ function App() {
             </div>
             <div className="abstract-copy">
               <p>
-                Strike vs Guard is a counter-UAS flight demonstration built on AirLab's AirStack. Guard drones hold a formation while an intruder, flown by a policy, by a simulated vehicle or by a person with a gamepad, tries to force its way through. Safety is enforced centrally. A velocity control barrier function, ported from the MuJoCo-validated drone_soccer project, sees every drone and minimally corrects their commands so no pair comes within twice the safety radius.
+                Drones are everywhere now, and sometimes one is somewhere it shouldn't be: near an airport, over a crowd, inside a no-fly zone. Strike vs Guard asks how a team of guard drones can keep a protected area covered and turn an approaching drone away, without any two drones ever coming too close. It is the execution layer of a multi-institute programme on homogeneous multi-agent safe and agile control, built at AirLab on AirStack.
+              </p>
+              <p>
+                In the flights shown here, guard drones hold a formation while an intruder, flown by a policy, by a simulated vehicle or by a person with a gamepad, passes through them. Safety is enforced centrally. A velocity control barrier function, ported from the MuJoCo-validated drone_soccer project, sees every drone and minimally corrects their commands so no pair comes within twice the safety radius.
               </p>
               <p>
                 The same commander drives simulated drones in Isaac Sim through MAVROS and real drones in an OptiTrack room through px4_interface over uXRCE-DDS, and it can mix them in one run. Real drones get a reference point with velocity and acceleration feedforward, so PX4 closes the position loop onboard. Goals, takeoff, hold and the geofence all use PX4's own braking law, and each piece was tuned against bags recorded in flight.
+              </p>
+              <p>
+                Next is a larger flight: about six guard drones and three intruders, where the guards use the intruders' own collision avoidance to steer them away from a protected zone, either by herding them or by holding a blocking formation along its boundary. Strategy and coordination policies from partner groups will arrive over the same ROS 2 interfaces, and the ground controller will turn them into safe commands for each drone. The same cooperative control carries over to search and rescue, environmental monitoring and inspection.
               </p>
             </div>
           </div>

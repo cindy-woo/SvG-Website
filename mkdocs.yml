@@ -1,5 +1,5 @@
 site_name: Strike vs Guard Documentation
-site_url: https://cindy-woo.github.io/SvG-Website/docs/
+site_url: https://cindy-woo.github.io/svg-website/docs/
 site_description: Collision-safe multi-drone ground control for counter-UAS flights on AirStack
 docs_dir: docs
 
@@ -51,7 +51,7 @@ extra_css:
 copyright: AirLab, Carnegie Mellon University, 2026
 
 nav:
-  - Project Website: https://cindy-woo.github.io/SvG-Website/
+  - Project Website: https://cindy-woo.github.io/svg-website/
   - Home: index.md
   - Get Started:
       - How AirStack Is Structured: getting-started/airstack.md

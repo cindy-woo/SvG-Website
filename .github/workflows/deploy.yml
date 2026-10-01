@@ -50,7 +50,7 @@ jobs:
 
     - name: Build docs
       run: |
-        sed -i "s|https://cindy-woo.github.io/SvG-Website/|${{ steps.site.outputs.url }}|g" mkdocs.yml docs/index.md
+        sed -i "s|https://cindy-woo.github.io/svg-website/|${{ steps.site.outputs.url }}|g" mkdocs.yml docs/index.md
         pip install "zensical==0.0.58"
         zensical build --strict
         rm -rf dist/docs && mv site dist/docs

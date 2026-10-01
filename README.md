@@ -5,15 +5,15 @@ The homepage and documentation for Strike vs Guard (SVG), the multi-drone ground
 The layout follows the [AM-Bench website](https://ambench.github.io/): a React/TypeScript homepage built with
 Vite, and a `docs/` section built with Zensical and served at `/docs/`.
 
-Every push to `main` deploys the site to https://cindy-woo.github.io/SvG-Website/ through
-`.github/workflows/deploy.yml`. The workflow derives the site path from the repository name (`/SvG-Website/` here, `/` for a repo named `<owner>.github.io`), so the same code deploys from a renamed or copied repository; `base` in `vite.config.ts` only sets the local default.
+Every push to `main` deploys the site to https://cindy-woo.github.io/svg-website/ through
+`.github/workflows/deploy.yml`. The workflow derives the site path from the repository name (`/svg-website/` here, `/` for a repo named `<owner>.github.io`), so the same code deploys from a renamed or copied repository; `base` in `vite.config.ts` only sets the local default.
 In code, build site paths with `withBase()` from `src/data/media.ts` rather than writing `/static/...` directly.
 
 ## Run the homepage
 
 ```bash
 npm ci
-npm run dev            # http://localhost:5173/SvG-Website/, homepage only
+npm run dev            # http://localhost:5173/svg-website/, homepage only
 npm run verify:build   # typecheck, build and check the page-size budgets
 ```
 
@@ -23,7 +23,7 @@ npm run verify:build   # typecheck, build and check the page-size budgets
 npm run build
 uv tool run --python 3.11 --from "zensical==0.0.58" zensical build --strict   # or: pip install "zensical==0.0.58"
 rm -rf dist/docs && mv site dist/docs
-npm run preview        # http://localhost:4173/SvG-Website/ and http://localhost:4173/SvG-Website/docs/
+npm run preview        # http://localhost:4173/svg-website/ and http://localhost:4173/svg-website/docs/
 ```
 
 The dev server serves only the homepage, so use the full preview to check the docs and the links between the two.

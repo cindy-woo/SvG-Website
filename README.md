@@ -6,7 +6,7 @@ The layout follows the [AM-Bench website](https://ambench.github.io/): a React/T
 Vite, and a `docs/` section built with Zensical and served at `/docs/`.
 
 Every push to `main` deploys the site to https://cindy-woo.github.io/SvG-Website/ through
-`.github/workflows/deploy.yml`. The site is served under `/SvG-Website/`, set as `base` in `vite.config.ts`.
+`.github/workflows/deploy.yml`. The workflow derives the site path from the repository name (`/SvG-Website/` here, `/` for a repo named `<owner>.github.io`), so the same code deploys from a renamed or copied repository; `base` in `vite.config.ts` only sets the local default.
 In code, build site paths with `withBase()` from `src/data/media.ts` rather than writing `/static/...` directly.
 
 ## Run the homepage

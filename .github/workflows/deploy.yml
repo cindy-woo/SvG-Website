@@ -29,13 +29,28 @@ jobs:
       with:
         python-version: "3.11"
 
+    # A project site lives at https://<owner>.github.io/<repo>/; a repo named
+    # <owner>.github.io lives at the root. Derive the path so a renamed or
+    # copied repository deploys at its own address.
+    - name: Work out where GitHub Pages serves this repository
+      id: site
+      run: |
+        owner="${GITHUB_REPOSITORY_OWNER,,}"
+        name="${GITHUB_REPOSITORY#*/}"
+        if [ "${name,,}" = "$owner.github.io" ]; then base="/"; else base="/$name/"; fi
+        echo "base=$base" >> "$GITHUB_OUTPUT"
+        echo "url=https://$owner.github.io$base" >> "$GITHUB_OUTPUT"
+        echo "Site: https://$owner.github.io$base"
+
     - name: Build homepage
       run: |
         npm ci
-        npm run verify:build
+        npm run build -- --base="${{ steps.site.outputs.base }}"
+        node scripts/verify-build.mjs
 
     - name: Build docs
       run: |
+        sed -i "s|https://cindy-woo.github.io/SvG-Website/|${{ steps.site.outputs.url }}|g" mkdocs.yml docs/index.md
         pip install "zensical==0.0.58"
         zensical build --strict
         rm -rf dist/docs && mv site dist/docs

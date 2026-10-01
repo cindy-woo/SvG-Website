@@ -120,7 +120,7 @@ export const releaseResources: ReleaseResource[] = [
   {
     id: "code",
     label: "Code (AirStack branch)",
-    href: "https://github.com/castacks/AirStack/tree/yikuan/SVG_ground_control/robot/ros_ws/src/svg_ground_control",
+    href: "https://github.com/castacks/AirStack/tree/yikuan/SVG_ground_control",
     status: "available",
   },
   { id: "docs", label: "Documentation", href: withBase("/docs/"), status: "available" },

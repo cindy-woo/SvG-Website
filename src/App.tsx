@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from "react";
-import { media, releaseResources, withBase, type MediaSlot } from "./data/media";
+import { media, releaseResources, withBase, type MediaFraming, type MediaSlot } from "./data/media";
 import {
   affiliations,
   authors,
@@ -88,11 +88,13 @@ function VideoFrame({
   label,
   className = "",
   describedBy,
+  framing = "camera",
 }: {
   src: string;
   label: string;
   className?: string;
   describedBy?: string;
+  framing?: MediaFraming;
 }) {
   const { ref, isNear } = useNearViewport<HTMLDivElement>();
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -116,7 +118,11 @@ function VideoFrame({
   };
 
   return (
-    <div ref={ref} className={`video-frame ${isPlaying ? "is-playing" : "is-paused"} ${className}`}>
+    <div
+      ref={ref}
+      className={`video-frame is-${framing} ${isPlaying ? "is-playing" : "is-paused"} ${className}`}
+      style={framing === "full" ? { aspectRatio: "1920 / 552" } : undefined}
+    >
       {isNear ? (
         <>
           <video
@@ -167,7 +173,7 @@ function MediaFrame({
   className?: string;
 }) {
   if (slot.src && slot.kind === "video") {
-    return <VideoFrame src={slot.src} label={slot.label} describedBy={describedBy} className={className} />;
+    return <VideoFrame src={slot.src} label={slot.label} describedBy={describedBy} className={className} framing={slot.framing} />;
   }
   if (slot.src) {
     return (
@@ -185,6 +191,17 @@ function MediaFrame({
         <small>public/static/media/{slot.suggested}</small>
       </div>
     </div>
+  );
+}
+
+// What a filled slot shows, with a link to the file itself (the full three-pane recording).
+function MediaCaption({ slot, className = "" }: { slot: MediaSlot; className?: string }) {
+  if (!slot.src || !slot.caption) return null;
+  return (
+    <p className={`media-caption ${className}`}>
+      {slot.caption}{" "}
+      <a href={slot.src} target="_blank" rel="noreferrer">Full recording ↗</a>
+    </p>
   );
 }
 
@@ -312,6 +329,7 @@ function SafetyExplorer() {
                 ))}
               </tbody>
             </table>
+            <MediaCaption slot={layer.media} />
           </div>
         </div>
       </div>
@@ -329,6 +347,7 @@ function ScenarioCard({ scenario, number }: { scenario: Scenario; number: string
         <div>
           <h3><code>{scenario.name}</code></h3>
           <p id={captionId}>{scenario.description}</p>
+          <MediaCaption slot={scenario.media} />
         </div>
       </div>
     </article>
@@ -461,6 +480,7 @@ function ExperimentExplorer() {
               {experiment.watch.map((item) => <li key={item}>{item}</li>)}
             </ul>
             <p className="svg-led"><span aria-hidden="true" /> {experiment.leds}</p>
+            <MediaCaption slot={experiment.media} />
           </div>
           <div className="embodiment-video-panel">
             <div className="experiment-video">
@@ -671,7 +691,7 @@ function App() {
         <section className="tasks-section section-block" id="scenarios">
           <div className="page-shell">
             <SectionIntro title="Flight scenarios">
-              <p>Seven nominal-velocity policies, picked with <code>scenario:=</code> at launch. Ported from drone_soccer, plus goal tracking and the squeeze.</p>
+              <p>Nine nominal-velocity policies, picked with <code>scenario:=</code> at launch. Ported from drone_soccer, plus goal tracking, goal sequences, the figure-eight and the squeeze.</p>
             </SectionIntro>
             <ScenarioCatalog />
           </div>
@@ -695,7 +715,9 @@ function App() {
               <figure className="architecture-figure">
                 <MediaFrame slot={media.basestation} />
                 <figcaption>
+                  {media.basestation.caption && <>{media.basestation.caption}<br /></>}
                   SVG Basestation · <a href={`${repoBase}/${packagePath}/foxglove/svg-basestation/README.md`}>panel README ↗</a>
+                  {media.basestation.src && <> · <a href={media.basestation.src} target="_blank" rel="noreferrer">Full recording ↗</a></>}
                 </figcaption>
               </figure>
               <div className="svg-feature-grid">

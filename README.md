@@ -35,7 +35,13 @@ Every media slot on the homepage shows a "planned" card until a file is added.
 1. Put the file in `public/static/media/videos/`, `photos/` or `figures/`. For a video, add a poster `.jpg`
    with the same name next to it.
 2. In `src/data/media.ts`, set that slot's `src`, for example `"/static/media/videos/c4-hybrid-squeeze.mp4"`.
-   Each slot's `suggested` field gives the file name it expects.
+   Each slot's `suggested` field gives the file name it expects. For a flight recording, use `recording()`:
+   it takes the file name, a caption shown under the clip, and a framing. The recordings are three panes
+   side by side (panel, 3D view, camera); `"camera"` (the default) crops a card to the camera pane and
+   `"full"` shows all three.
+
+The raw clips can be kept in `video/` (ignored by git) and copied in with
+`ffmpeg -i video/<clip>.mp4 -c:v copy -an -movflags +faststart public/static/media/videos/<name>.mp4`.
 
 ## Edit the content
 

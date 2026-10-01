@@ -3290,3 +3290,22 @@ code {
   }
 
 }
+
+/* Flight recordings: three panes side by side, 1920 x 552. "camera" shows the
+   right-hand camera pane in a 16:9 frame; "full" shows the whole recording. */
+.video-frame.is-camera video { object-fit: cover; object-position: 100% 50%; }
+.video-frame.is-full { aspect-ratio: 1920 / 552; }
+.video-frame.is-full video { object-fit: contain; }
+
+.media-caption { margin: 10px 0 0; color: var(--muted); font-size: .875rem; line-height: 1.6; }
+.media-caption a { white-space: nowrap; }
+.task-card .media-caption { font-size: var(--text-small); }
+.effect-evidence .media-caption { margin-top: 16px; }
+.embodiment-comparison-panel .media-caption { margin-top: 16px; }
+
+/* The ground-station recording is wide, so it goes above the features at full width. */
+.svg-basestation { grid-template-columns: minmax(0, 1fr); }
+.svg-basestation .svg-feature-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 820px) {
+  .svg-basestation .svg-feature-grid { grid-template-columns: 1fr; }
+}

@@ -14,7 +14,7 @@ export const affiliations = ["AirLab, Carnegie Mellon University"];
 
 export const stats = [
   { value: "20 Hz", label: "central control loop for every drone" },
-  { value: "7", label: "flight scenarios, from hover to squeeze" },
+  { value: "9", label: "flight scenarios, from hover to squeeze" },
   { value: "3", label: "Starling drones flown in the mocap room" },
   { value: "140", label: "unit and plant-model tests" },
 ];
@@ -201,7 +201,7 @@ export const scenarioGroups: ScenarioGroup[] = [
     id: "station",
     index: "01",
     title: "Hold and seek",
-    description: "Drones hold a layout, or fly to goals you set while they're in the air.",
+    description: "Drones hold a layout, fly to goals you set while they're in the air, or work through a scripted list of goals.",
     scenarios: [
       {
         id: "hover",
@@ -214,6 +214,12 @@ export const scenarioGroups: ScenarioGroup[] = [
         name: "goal",
         description: "Each drone seeks a goal [x, y, z, θ] set live on /svg/{name}/goal_xyzt, at a speed set on speed_command. Named formations retarget the whole swarm at once.",
         media: media.scenarioGoal,
+      },
+      {
+        id: "goal-sequence",
+        name: "goal_sequence",
+        description: "Each drone works through a scripted list of goals, so the swarm steps from one layout to the next without an operator sending each goal.",
+        media: media.scenarioGoalSequence,
       },
     ],
   },
@@ -254,6 +260,12 @@ export const scenarioGroups: ScenarioGroup[] = [
         name: "antipodal",
         description: "Each drone crosses through the centre to the antipode of its start on a sphere.",
         media: media.scenarioAntipodal,
+      },
+      {
+        id: "figure-eight",
+        name: "figure_eight",
+        description: "Each scenario drone traces a figure-eight through the room, so the paths cross at the centre. Fly a third drone by hand through it and the filter bends the pattern around the pilot.",
+        media: media.scenarioFigureEight,
       },
     ],
   },
@@ -315,6 +327,7 @@ export const experiments: Experiment[] = [
     drones: [
       { name: "drone_1", mode: "real", role: "auto", cbf: "filtered" },
       { name: "drone_2", mode: "real", role: "auto", cbf: "filtered" },
+      { name: "drone_3", mode: "real", role: "auto", cbf: "filtered" },
     ],
     watch: [
       "Paths cross without a pair ever coming closer than 2r.",
@@ -452,7 +465,7 @@ export const basestationFeatures = [
   },
   {
     title: "Live CBF gains",
-    text: "α, r and v_max sliders with a live readout. Each value shows ✓ once the commander confirms it, … while it's waiting, and ✗ if it's rejected.",
+    text: "α, r, v_max and goal-acceleration sliders with a live readout, applied in flight. Each value shows ✓ once the commander confirms it, … while it's waiting, and ✗ if it's rejected.",
   },
   {
     title: "Agent state",

@@ -58,11 +58,7 @@ export const media = {
   modeReal: slot("photo", "Three Starling drones with their LED strips in the flight room", "photos/starling.jpg", "/static/media/photos/starling.jpg"),
   modeHybrid: slot("photo", "Real drone shown as an avatar in Isaac Sim", "photos/hybrid-avatar.jpg"),
 
-  safetyCbf: recording(
-    "Two drones sent to the same goal, held apart by the CBF filter",
-    "c2-multi-goal.mp4",
-    "Two real drones sent to the same goal, (2, −2, 1.5) m. The filter keeps them 2r apart and marks both as correcting. Partway through, α goes from 2.0 to 1.8 and r is raised to 1.0 m from the panel's sliders, with no restart: the safety spheres in the 3D view grow and the standoff widens.",
-  ),
+  safetyCbf: slot("video", "CBF filter moving a holder out of the way", "videos/cbf-yield.mp4"),
   safetyFence: slot("video", "Drone braking at the keep_in wall", "videos/fence-keep-in.mp4"),
   safetyTeleopFence: slot("video", "Hand-flown drone stopping at the teleop fence", "videos/teleop-fence.mp4"),
   safetyHold: slot("video", "Hold braking to a stop point", "videos/hold-brake.mp4"),

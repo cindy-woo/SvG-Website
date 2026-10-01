@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Strike vs Guard">
+  <rect width="64" height="64" rx="6" fill="#c41230"/>
+  <path d="M32 10 L50 17 V31 C50 42 42 50 32 54 C22 50 14 42 14 31 V17 Z" fill="none" stroke="#fff" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M8 50 L40 22" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+  <path d="M30 20 L42 20 L42 32" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

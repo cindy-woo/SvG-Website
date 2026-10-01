@@ -1,0 +1,92 @@
+site_name: Strike vs Guard Documentation
+site_description: Collision-safe multi-drone ground control for counter-UAS flights on AirStack
+docs_dir: docs
+
+theme:
+  name: material
+  logo: assets/svg-logo.svg
+  favicon: assets/svg-logo.svg
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.sections
+    - navigation.path
+    - navigation.top
+    - navigation.tracking
+    - toc.follow
+    - search.highlight
+    - search.suggest
+    - content.code.copy
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - tables
+  - toc:
+      permalink: true
+
+extra_css:
+  - stylesheets/extra.css
+
+copyright: AirLab, Carnegie Mellon University, 2026
+
+nav:
+  - Project Website: /
+  - Home: index.md
+  - Get Started:
+      - How AirStack Is Structured: getting-started/airstack.md
+      - How SVG Ground Control Is Structured: getting-started/architecture.md
+      - Conventions: getting-started/conventions.md
+      - Simulation Quick Start: getting-started/simulation.md
+  - Real Drones:
+      - Bring in a Real Drone: hardware/index.md
+      - Per-Drone One-Time Setup: hardware/voxl-setup.md
+      - Onboard LED Strip: hardware/leds.md
+      - Agent, Interfaces and Mocap: hardware/agent-and-interfaces.md
+      - External Vision into EKF2: hardware/external-vision.md
+      - Preflight and First Flight: hardware/first-flight.md
+      - VOXL2 Diagnostics: hardware/voxl-diagnostics.md
+  - Experiments:
+      - Tasks in Any Mode: experiments/index.md
+      - C1 Single-Drone Goal: experiments/single-goal.md
+      - C2 Multi-Drone Goals: experiments/multi-goal.md
+      - C3 Squeeze Rehearsal: experiments/squeeze-sim.md
+      - C4 Hybrid Squeeze: experiments/hybrid-squeeze.md
+      - C5 Hand-Flown Intruder: experiments/hand-flown-intruder.md
+      - Gamepad Teleop: teleop/index.md
+  - Safety:
+      - CBF Filter and Safety: safety/index.md
+      - Geofence: safety/geofence.md
+  - Ground Station:
+      - Foxglove Setup: ground-station/foxglove.md
+      - SVG Basestation Panel: ground-station/basestation.md
+      - RViz: ground-station/rviz.md
+      - AirStack GCS Panels: ground-station/gcs-panels.md
+  - Reference:
+      - Scenarios: reference/scenarios.md
+      - Commander Features: reference/commander.md
+      - Topics and Services: reference/topics.md
+      - Recording Rosbags: reference/recording.md
+      - Automated Tests: reference/tests.md
+      - Update 2026-09-27: reference/update-2026-09-27.md
+  - Help:
+      - Troubleshooting: help/troubleshooting.md

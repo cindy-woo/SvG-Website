@@ -15,7 +15,7 @@ export const affiliations = ["AirLab, Robotics Institute, Carnegie Mellon Univer
 
 export const stats = [
   { value: "20 Hz", label: "central control loop for every drone" },
-  { value: "9", label: "flight scenarios, from hover to squeeze" },
+  { value: "4", label: "scenarios flown and recorded on real drones" },
   { value: "3", label: "Starling drones flown in the mocap room" },
   { value: "140", label: "unit and plant-model tests" },
 ];
@@ -201,15 +201,9 @@ export const scenarioGroups: ScenarioGroup[] = [
   {
     id: "station",
     index: "01",
-    title: "Hold and seek",
-    description: "Drones hold a layout, fly to goals you set while they're in the air, or work through a scripted list of goals.",
+    title: "Goal seeking",
+    description: "Drones fly to goals you set while they're in the air, or work through a scripted list of goals.",
     scenarios: [
-      {
-        id: "hover",
-        name: "hover",
-        description: "Each drone holds its configured position. Used for first flights and for flying at a drone by hand.",
-        media: media.scenarioHover,
-      },
       {
         id: "goal",
         name: "goal",
@@ -231,12 +225,6 @@ export const scenarioGroups: ScenarioGroup[] = [
     description: "Random motion that keeps the filter busy for long runs.",
     scenarios: [
       {
-        id: "random-walk",
-        name: "random_walk",
-        description: "Drift at a fixed speed, bouncing off the walls.",
-        media: media.scenarioRandomWalk,
-      },
-      {
         id: "random-goals",
         name: "random_goals",
         description: "Seek a random goal and pick a new one on arrival.",
@@ -251,36 +239,10 @@ export const scenarioGroups: ScenarioGroup[] = [
     description: "Geometry that makes paths cross on purpose.",
     scenarios: [
       {
-        id: "head-on",
-        name: "head_on",
-        description: "Two groups face each other and swap sides, again and again.",
-        media: media.scenarioHeadOn,
-      },
-      {
-        id: "antipodal",
-        name: "antipodal",
-        description: "Each drone crosses through the centre to the antipode of its start on a sphere.",
-        media: media.scenarioAntipodal,
-      },
-      {
         id: "figure-eight",
         name: "figure_eight",
         description: "Each scenario drone traces a figure-eight through the room, so the paths cross at the centre. Fly a third drone by hand through it and the filter bends the pattern around the pilot.",
         media: media.scenarioFigureEight,
-      },
-    ],
-  },
-  {
-    id: "strike",
-    index: "04",
-    title: "Strike vs guard",
-    description: "The showcase: an intruder passes between two guards, and the guards make room.",
-    scenarios: [
-      {
-        id: "squeeze",
-        name: "squeeze",
-        description: "Two holders track fixed posts while an intruder shuttles through the gap between them. The holders have to yield and then return. Order: [holder, holder, intruder].",
-        media: media.scenarioSqueeze,
       },
     ],
   },

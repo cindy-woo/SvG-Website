@@ -58,7 +58,11 @@ export const media = {
   modeReal: slot("photo", "Three Starling drones with their LED strips in the flight room", "photos/starling.jpg", "/static/media/photos/starling.jpg"),
   modeHybrid: slot("photo", "Real drone shown as an avatar in Isaac Sim", "photos/hybrid-avatar.jpg"),
 
-  safetyCbf: slot("video", "CBF filter moving a holder out of the way", "videos/cbf-yield.mp4"),
+  safetyCbf: recording(
+    "cbf_alpha changed from the panel during a goal run",
+    "c2-multi-goal.mp4",
+    "Three real drones under scenario goal, with drone_2 sent to drone_1's goal so the filter has a pair to keep apart. α is changed from the panel while they fly: 2.0 at the start, up to 6.0, then down to 1.8 and 1.0. At the high end the drones yield late with hard corrections; at the low end they yield early and softly. The panel's dropdown switches the same slider to r and v_max.",
+  ),
   safetyFence: slot("video", "Drone braking at the keep_in wall", "videos/fence-keep-in.mp4"),
   safetyTeleopFence: slot("video", "Hand-flown drone stopping at the teleop fence", "videos/teleop-fence.mp4"),
   safetyHold: slot("video", "Hold braking to a stop point", "videos/hold-brake.mp4"),
@@ -95,11 +99,7 @@ export const media = {
     "c1-single-goal.mp4",
     "One real drone, drone_1, with the two sim drones in the config left on the ground. Goal acceleration is set to 3.4 m/s² from the panel, then the drone is sent to (2, 2, 2) m and on to (−2, 2, 2) m, stopping on each goal.",
   ),
-  expMultiGoal: recording(
-    "C2 multi-drone goals with live CBF gains",
-    "c2-multi-goal.mp4",
-    "Three real drones. drone_1 is sent to (2, −2, 1.5) m, then drone_2 is sent to the same spot: the filter holds the pair apart and both show as correcting. α is then lowered from 2.0 to 1.8 and r raised to 1.0 m, live from the panel, and the safety spheres in the 3D view grow to match. drone_3 is sent to (−1.5, 2, 1.5) m.",
-  ),
+  expMultiGoal: slot("video", "C2 multi-drone goals and formations", "videos/c2-multi-goal-formations.mp4"),
   expSqueezeSim: slot("video", "C3 all-sim squeeze rehearsal", "videos/c3-squeeze-sim.mp4"),
   expHybrid: slot("video", "C4 hybrid squeeze: real holders, simulated intruder", "videos/c4-hybrid-squeeze.mp4"),
   expHandFlown: slot("video", "C5 squeeze with a hand-flown intruder", "videos/c5-hand-flown.mp4"),

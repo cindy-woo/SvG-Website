@@ -353,7 +353,7 @@ function ScenarioCatalog() {
   const [openId, setOpenId] = useUrlChoice(
     "scenarios",
     ["none", ...scenarioGroups.map((group) => group.id)] as const,
-    "strike",
+    "station",
   );
   let offset = 0;
 
@@ -692,7 +692,7 @@ function App() {
         <section className="tasks-section section-block" id="scenarios">
           <div className="page-shell">
             <SectionIntro title="Flight scenarios">
-              <p>Nine nominal-velocity policies, picked with <code>scenario:=</code> at launch. Ported from drone_soccer, plus goal tracking, goal sequences, the figure-eight and the squeeze.</p>
+              <p>The scenarios flown so far in the mocap room, each with its recording. A scenario is a nominal-velocity policy picked with <code>scenario:=</code> at launch, and every one runs under the same filter.</p>
             </SectionIntro>
             <ScenarioCatalog />
           </div>
